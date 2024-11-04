@@ -28,6 +28,9 @@ int calc(int menuselect) {
 		case 5:
 			return 200;
 			break;
+		default:
+			return 0;
+			break;
 	}
 }
 
