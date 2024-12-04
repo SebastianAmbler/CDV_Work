@@ -1,36 +1,31 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+float result;
 
-//prices
 struct table {
 	char menu[50];
 	int price;
 }; struct table t[6];
 
 void menu() {
-	printf("------ Drink Menu ------ \n");
-	printf("1. %s     -->   %d$\n", t[0].menu, t[0].price);
-	printf("2. %s	  -->   %d$\n", t[1].menu, t[1].price);
-	printf("3. %s     -->   %d$\n", t[2].menu, t[2].price);
-	printf("4. %s     -->   %d$\n", t[3].menu, t[3].price);
-	printf("5. %s     -->   %d$\n", t[4].menu, t[4].price);
-	printf("------------------------ \n");
-	printf("Please select a menu: \n");
+	printf("--------- Menu --------- \n");
+	for (int i = 0; i < 5; i++) {
+		printf("%d. %-9s -->   %d$\n", i + 1, t[i].menu, t[i].price);
+	}
+	printf("Please select a menu. If you are finished, please type 0 \n\n");
 }
 
-float calc2(float money, int total) {
-	float change = money - total;
-	return change;
+void calc(int order) {
+	if (order >= 0 && order <= 4) {
+		printf("You have ordered %s, which is %d$.\n", t[order].menu, t[order].price);
+	} else printf("Your order is not on the menu\n");
+	
+	float tax = t[order].price * 0.07;
+	result += tax + t[order].price;
 }
 
-float tax(float money) {
-	int amount = money * 7/100;
-	return money + amount;
-}
-
-main() {
-	menu();
-	struct table t[6];
+int main() {
 	strcpy(t[0].menu, "Pasta");
 	t[0].price = 45;
 	strcpy(t[1].menu, "Spaghetti");
@@ -41,17 +36,16 @@ main() {
 	t[3].price = 180;
 	strcpy(t[4].menu, "Red Wine");
 	t[4].price = 350;
-	int select, result;
-	float change, money;
+	int input;
 	
+	menu();
 	
-	scanf("%d", &select);
-	select--;
-	result = tax(t[select].price);
-	printf("Your total is %d$\n", result);
-	printf("How much would you like to pay?\n");
-	scanf("%f", &money);
-	change = calc2(money, result);
-	printf("Your change is %.2f$", change);
+	while (1) {
+	    scanf("%d", &input);
+	    if (input == 0) break;
+	    calc(input - 1);
+	}
 	
+	printf("Your total is %.2f$\n", result);
+	return 0;
 }
