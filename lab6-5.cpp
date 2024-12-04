@@ -19,10 +19,9 @@ void menu() {
 void calc(int order) {
 	if (order >= 0 && order <= 4) {
 		printf("You have ordered %s, which is %d$.\n", t[order].menu, t[order].price);
+		float tax = t[order].price * 0.07;
+		result += tax + t[order].price;
 	} else printf("Your order is not on the menu\n");
-	
-	float tax = t[order].price * 0.07;
-	result += tax + t[order].price;
 }
 
 int main() {
