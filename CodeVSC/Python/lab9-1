@@ -1,0 +1,12 @@
+Num1 = int(input("Enter your first number "))
+Num2 = int(input("Enter your second number "))
+
+def compare(a, b):
+    if (a > b):
+        return "Number 1 is more than Number 2"
+    elif(a < b):
+        return "Number 1 is less than Number 2"
+    else:
+        return "Error"
+
+print(compare(Num1, Num2))
